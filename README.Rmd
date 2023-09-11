@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# TSM
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This package, TSM (aka. The [Smith](https://www.obgyn.cam.ac.uk/staff/senior-staff/professor-gordon-smith/) Method), is to select a desired number of features (4 by default) by purposefully dropping highly correlated ones, *i.e,* picking up highly representative features that can best explain the binary outcomes. In plain English, it works like the follwoing: The first representative feature is the one that shows the highest AUC (Area Under the ROC Curve) out of all the features. The next representative feature is the one that shows the highest AUC out of the remaing features after dropping highly correlated features with the first representative feature. The third, the fourth, and so on, represenative feature will be picked up as the same way the 2nd is picked up.
+
+By default, `spearman` correlation coefficient is used to check the correlation among the possible features and they will be dropped if they are above a certain threshold (e.g. 0.5) by leaving a represenative one having the best AUC. It recursively checks their correlations and drops the feature until nothing left to check. By default, the thresholds for the correlation coefficients are set from 0.1 (i.e. highly stringent by leaving less features) to 0.7 (i.e. less stringent by leaving more features) by increasing 0.1 at each step. 
+
+## Installation
+
+You can install the development version of TSM like so:
+
+```{r install, eval=F, echo=T}
+devtools::install_github("sung/TSM")
+```
+
+## Example
+
+The input file should have features as columns, including the outcome column (`y` by default) which contains a binary outcome, either `0` or `1`. 
+For example:
+```{r input}
+library(TSM)
+input=read.csv(system.file("extdata","demo_input.csv",package="TSM")) # read the example input from TSM 
+input[1:5,]
+```
+
+```{r example}
+TSM(x=input) # run TSM with default parameters
+
+TSM(x=input, corr=c(0.4, 0.5)) # two correlation coefficients only 
+
+TSM(x=input, corr=c(0.4, 0.5),k=3) # two correlation coefficients and three features only 
+
+TSM(x=input, corr=c(0.4, 0.5),k=3,method="pearson") # pearson method  
+```
+
+As shown above, `TSM` returns a table (`data.table`) by descending order of Leave-Pair-Out-Cross-Validation (LPOCV) [Gordon Am J Epi 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4108045/) at each threshold of correlation coefficients.
+
+In case you'd like more verbose version of outcomes:
+```{r example2}
+foo<-TSM(x=input,corr=c(0.4,0.5),k=3,verbose=T)
+
+foo[["cor0.4"]]
+foo[["cor0.5"]]
+
+data.table::rbindlist(foo[["performance"]])[order(-`AUC(LPOCV)`)]
+```

@@ -1,0 +1,19 @@
+Package: TSM
+Title: The Smith Method
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Sung", "Gong", email="sung.gong@yahoo.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5796-4423")),
+    person("Gordon", "Smith", role = "aut")
+  )
+Description: TSM selects a desired number of features (4 by default) by
+    purposefully dropping highly correlated features, *i.e,* picking up a
+    set of representative features that can best explain the binary
+    outcomes.
+License: MIT + file LICENSE
+URL: https://github.com/sung/TSM, https://sung.github.io/TSM
+Imports: 
+    data.table,
+    pROC
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
