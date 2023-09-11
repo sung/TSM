@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # TSM
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/sung/TSM/workflows/R-CMD-check/badge.svg)](https://github.com/sung/TSM/actions)
 <!-- badges: end -->
 
 This package, TSM (aka. The [Smith](https://www.obgyn.cam.ac.uk/staff/senior-staff/professor-gordon-smith/) Method), is to select a desired number of features (4 by default) by purposefully dropping highly correlated ones, *i.e,* picking up highly representative features that can best explain the binary outcomes. In plain English, it works like the follwoing: The first representative feature is the one that shows the highest AUC (Area Under the ROC Curve) out of all the features. The next representative feature is the one that shows the highest AUC out of the remaing features after dropping highly correlated features with the first representative feature. The third, the fourth, and so on, represenative feature will be picked up as the same way the 2nd is picked up.

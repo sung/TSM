@@ -4,6 +4,8 @@
 # TSM
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/sung/TSM/workflows/R-CMD-check/badge.svg)](https://github.com/sung/TSM/actions)
 <!-- badges: end -->
 
 This package, TSM (aka. The

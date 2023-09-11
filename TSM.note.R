@@ -1,5 +1,6 @@
 # https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html
-#https://kbroman.org/pkg_primer/pages/depends.html
+#https://kbroman.org/pkg_primer
+#https://rpubs.com/stephenknapp/how-to-create-an-r-package
 
 library(devtools)
 
@@ -8,7 +9,8 @@ path<-file.path("~/Devel/Rpkg",name)
 
 use_devtools()
 
-devtools::create(path)
+#devtools::create(path)
+create_package(path)
 project_activate(path)
 
 ###########
@@ -24,26 +26,48 @@ use_author("foo","bar") # does not seem to work
 #############
 ## Imports ##
 #############
-#use_package("data.table") # does not work with imports 
-use_package("data.table")
-use_package("pROC")
-use_tidy_description()
+use_pipe()
+use_package("data.table",min_version=T)
+use_package("pROC",min_version=T)
+use_package("magrittr",min_version=T)
+use_tidy_description() 
 
-# moved to TSM/ and work on R/TSM.R
+############
+# R source #
+############
+use_r("TSM")
+
+#########
+# Build #
+#########
+# work on R/TSM.R
 devtools::document()
 
 devtools::load_all()
+devtools::check()
 devtools::install()
 
-devtools::check()
-
-#
+##########
+# README #
+##########
 use_readme_rmd()
 #use_readme_md()
-devtools::build_readme()
+build_readme()
 
 use_news_md()
 
-# pkgdown
+###########
+# pkgdown #
+###########
 use_pkgdown()
 build_site()
+
+####### 
+# GIT #
+####### 
+use_pkgdown_github_pages() # internally calls the below
+#use_github_pages()
+#use_github_action()
+
+# 
+use_github_links(overwrite=T)
