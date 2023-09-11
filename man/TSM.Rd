@@ -13,6 +13,8 @@ TSM(x, method = "spearman", corr = seq(0.1, 0.7, by = 0.1), k = 4, verbose = F)
 
 \item{corr}{A numeric vector for the thresholds of correlation coefficients.}
 
+\item{k}{The number of desicred features (default:4)}
+
 \item{verbose}{Boolean}
 }
 \value{

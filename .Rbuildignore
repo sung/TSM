@@ -1,4 +1,5 @@
 ^_pkgdown\.yml$
+^TSM\.note\.R\$
 ^docs$
 ^pkgdown$
 ^README\.Rmd$

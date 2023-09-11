@@ -68,6 +68,7 @@ build_site()
 use_pkgdown_github_pages() # internally calls the below
 #use_github_pages()
 #use_github_action()
+use_github_action("pkgdown")
 
 # 
 use_github_links(overwrite=T)

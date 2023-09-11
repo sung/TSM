@@ -43,6 +43,7 @@ get_LPOCV<-function(x){
 #' @param x Path to the input file 
 #' @param method A Character either `pearson` (default) or `spearman`, which is the same paramter `method` for `cor()`.
 #' @param corr A numeric vector for the thresholds of correlation coefficients.  
+#' @param k The number of desicred features (default:4)
 #' @param verbose Boolean
 #' @return a data.table (default) or a list of data.table (verbose=T)
 #' @examples
