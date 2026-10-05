@@ -4,12 +4,18 @@
 \alias{TSM}
 \title{The Smith Method}
 \usage{
-TSM(x, method = "spearman", corr = seq(0.1, 0.7, by = 0.1), k = 4, verbose = F)
+TSM(
+  x,
+  method = "spearman",
+  corr = seq(0.1, 0.7, by = 0.1),
+  k = 4,
+  verbose = FALSE
+)
 }
 \arguments{
-\item{x}{Path to the input file}
+\item{x}{A data.frame with the features as columns plus a binary outcome column \code{y} (either \code{0} or \code{1}). All feature columns must be numeric. Missing values are allowed and are handled pairwise for the correlations and dropped row-wise when fitting a model.}
 
-\item{method}{A Character either \code{pearson} (default) or \code{spearman}, which is the same paramter \code{method} for \code{cor()}.}
+\item{method}{A Character either \code{spearman} (default) or \code{pearson}, which is the same paramter \code{method} for \code{cor()}.}
 
 \item{corr}{A numeric vector for the thresholds of correlation coefficients.}
 
@@ -22,6 +28,12 @@ a data.table (default) or a list of data.table (verbose=T)
 }
 \description{
 This function TSM (aka. The Smith Method) selects a desired number of features (4 by default) by purposefully dropping highly correlated features, \emph{i.e,} picking up a set of representative features that can best explain the binary outcomes. In a plain language, it works like the follwoing: The first representative feature is the one that shows the highest AUC (Area Under the ROC Curve) out of all the features. The next representative feature is the one that shows the highest AUC out of the remaing features after dropping highly correlated features with the first representative feature. The third, the fourth, and so on, represenative feature will be picked up as the same way the 2nd is picked up.
+}
+\details{
+Note that the correlations between features are calculated on the cases
+(\code{y == 1}) only, and that the feature selection is carried out on the whole
+of \code{x}. The reported \code{AUC(LPOCV)} therefore remains optimistic, as the
+selection step itself is not nested inside the cross-validation.
 }
 \examples{
 input=read.csv(system.file("extdata","demo_input.csv",package="TSM")) # read the example input 

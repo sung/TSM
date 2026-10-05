@@ -1,7 +1,10 @@
 ^_pkgdown\.yml$
-^TSM\.note\.R\$
+^TSM\.note\.R$
 ^docs$
 ^pkgdown$
 ^README\.Rmd$
 ^LICENSE\.md$
 ^\.github$
+^\.claude$
+^TSM\.Rcheck$
+^TSM_.*\.tar\.gz$
