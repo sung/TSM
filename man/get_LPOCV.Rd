@@ -7,10 +7,12 @@
 get_LPOCV(x)
 }
 \arguments{
-\item{x}{data.frame}
+\item{x}{A data.frame holding the binary outcome column \code{y} (either \code{0} or
+\code{1}) and one or more predictor columns. Rows with any missing value are
+dropped before fitting.}
 }
 \value{
-a numeric value of LPOCV
+a single (unnamed) numeric value of LPOCV
 }
 \description{
 This function returns an optimism-adjusted c-stat. Read more by \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4108045/}{Gordon Am J Epi 2014}.
